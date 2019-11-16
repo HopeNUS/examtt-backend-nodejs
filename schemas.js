@@ -20,7 +20,7 @@ exports.BatchInsertExamsSchema = {
                 "contact": {"type": "integer"},
                 "request": {"type": "string"},
             },
-            "required": ["time", "place", "name", "lifegroup", "course_code"],
+            "required": ["datetime", "place", "name", "lifegroup", "course_code"],
         },
     },
 }
