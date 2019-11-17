@@ -1,11 +1,28 @@
+const Sequelize = require('sequelize')
 const models = require('./models')
 
-exports.create_exams = function(exam_records) {
-    return models.ExamTab.bulkCreate(exam_records);
+exports.create_exams = async function(exam_records) {
+    try {
+        return await models.ExamTab.bulkCreate(exam_records);
+    } catch (ex) {
+        if (ex instanceof Sequelize.UniqueConstraintError) {
+            console.log(ex);
+            return {'error': 'One or more exam entry already added!'};
+        }
+        throw ex;
+    }
 }
 
-exports.create_prayer_warriors = function(prayer_warriors_records) {
-    return models.PrayerWarriorTab.bulkCreate(prayer_warriors_records);
+exports.create_prayer_warriors = async function(prayer_warriors_records) {
+    try {
+        return await models.PrayerWarriorTab.bulkCreate(prayer_warriors_records);
+    } catch (ex) {
+        if (ex instanceof Sequelize.UniqueConstraintError) {
+            console.log(ex);
+            return {'error': 'One or more prayer warrior entry already added!'};
+        }
+        throw ex;
+    }
 }
 
 exports.get_exams = function(filters) {
