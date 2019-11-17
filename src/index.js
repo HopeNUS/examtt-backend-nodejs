@@ -1,3 +1,4 @@
+const cors = require('cors')
 const express = require('express')
 const app = express()
 const port = process.env.PORT
@@ -5,6 +6,7 @@ const commons = require('./commons')
 const schemas = require('./schemas')
 const views = require('./views')
 
+app.use(cors());    // To support CORS
 app.use(express.json());       // to support JSON-encoded bodies
 
 app.get('/', (req, res) => res.send('Hello World!'));
