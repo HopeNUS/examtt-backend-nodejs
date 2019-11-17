@@ -1,15 +1,25 @@
 const models = require('./models')
 
+exports.create_exams = function(exam_records) {
+    return models.ExamTab.bulkCreate(exam_records);
+}
+
+exports.create_prayer_warriors = function(prayer_warriors_records) {
+    return models.PrayerWarriorTab.bulkCreate(prayer_warriors_records);
+}
+
 exports.get_exams = function(filters) {
     return models.ExamTab.findAll({
         where: filters,
         order: [['datetime', 'ASC']],
+        raw: true,
     });
 };
 
-exports.get_prayer_warrios = function(filters) {
+exports.get_prayer_warriors = function(filters) {
     return models.PrayerWarriorTab.findAll({
         where: filters,
+        raw: true,
     });
 };
 

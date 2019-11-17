@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const settings = require('./settings')
 
-exports.db_config = {
+const db_config = {
     "DEV": {
         "database": "postgres",
         "username": "jeremiah-ang",

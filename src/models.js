@@ -43,12 +43,15 @@ ExamTab.init({
     },
 
     extra_data: Sequelize.STRING,
+    ctime: Sequelize.BIGINT,
+    mtime: Sequelize.BIGINT,
 }, {
     sequelize,
     indexes: [
         {
-            name: 'idx_datetime_place',
-            fields: ['datetime', 'place'],
+            name: 'idx_datetime_place_name',
+            fields: ['datetime', 'place', 'name'],
+            unique: true,
         },
         {
             name: 'idx_school_lifegroup',
@@ -56,6 +59,8 @@ ExamTab.init({
         },
     ],
     tableName: 'exam_tab',
+    updatedAt: false,
+    createdAt: false,
 });
 exports.ExamTab = ExamTab
 
@@ -78,6 +83,12 @@ PrayerWarriorTab.init({
         type: Sequelize.BIGINT,
         allowNull: false,
     },
+    school: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+    },
+    ctime: Sequelize.BIGINT,
+    mtime: Sequelize.BIGINT,
 }, {
     sequelize,
     indexes: [
@@ -88,5 +99,7 @@ PrayerWarriorTab.init({
         },
     ],
     tableName: 'prayer_warrior_tab',
+    updatedAt: false,
+    createdAt: false,
 });
 exports.PrayerWarriorTab = PrayerWarriorTab
