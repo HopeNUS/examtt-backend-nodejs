@@ -40,10 +40,11 @@ exports.get_exams = commons.async_handler(async function(req, res) {
 
     const prayer_warrior_filters = prepare_get_prayer_warrior_params(exam_ids);
     const prayer_warrior_results = await manager.get_prayer_warriors(prayer_warrior_filters);
+    const prayer_warrior_records = process_prayer_warrior_record_results(prayer_warrior_results);
 
     const result = {
         'exams': exam_records,
-        'prayer_warriors': prayer_warrior_results,
+        'prayer_warriors': prayer_warrior_records,
     }
 
     return res.send(result);
@@ -58,6 +59,16 @@ exports.batch_delete_exams = commons.async_handler(async function(req, res) {
     const result = await manager.delete_exams(exam_ids);
     return res.send({'deleted': result});
 });
+
+function process_prayer_warrior_record_results(prayer_warrior_results) {
+    const prayer_warrior_records = [];
+    for (let prayer_warrior_record of prayer_warrior_results) {
+        delete prayer_warrior_record['ctime'];
+        delete prayer_warrior_record['mtime'];
+        prayer_warrior_records.push(prayer_warrior_record);
+    }
+    return prayer_warrior_records;
+}
 
 function prepare_get_prayer_warrior_params(exam_ids) {
     return {
@@ -76,6 +87,8 @@ function process_exam_record_results(exam_record_results) {
         delete exam_record['extra_data'];
         exam_records.push(exam_record);
         exam_ids.push(exam_record['exam_id']);
+        delete exam_record['ctime'];
+        delete exam_record['mtime'];
     }
     return { exam_ids, exam_records };
 }
