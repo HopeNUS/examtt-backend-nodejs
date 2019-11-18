@@ -7,7 +7,7 @@ exports.validate_json_schema_middleware = function(schema) {
         const data = (req.method == "POST") ? req.body : req.query;
         const verdict = v.validate(data, schema);
         if (!verdict.valid) {
-            const error_msg = verdict.errors.map(error => '{} {}'.format(error.instance, error.message)).join(',\n');
+            const error_msg = verdict.errors.map(error => `${JSON.stringify(error.instance)} ${error.message}`).join(',\n');
             return res.send({'error': error_msg});
         }
         next();
