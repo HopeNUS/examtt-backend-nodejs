@@ -25,7 +25,7 @@ exports.deepcopy = function(obj) {
 }
 
 exports.datetime_to_timestamp = function(datetime) {
-    return moment(datetime, 'DD/MM/YYYY HH:mm').utcOffset('+0800').valueOf();
+    return moment(datetime, 'DD/MM/YYYY HH:mm').utcOffset('+0800', true).valueOf();
 }
 
 exports.timestamp_to_datetime = function(timestamp) {
